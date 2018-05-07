@@ -1,0 +1,9 @@
+<!--
+TODO (5) Strings
+-->
+<resources>
+    <string name="app_name">AppCEIOT</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="ola_mundo">Olá Mundo!</string>
+    <string name="button_text">Clique Aqui!</string>
+</resources>

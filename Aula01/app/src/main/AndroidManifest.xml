@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+TODO: (1) Manifest.
+Todos os aplicativo tem que ter um arquivo AndroidManifest.xml (precisamente com esse nome) no
+diretório raiz. O arquivo de manifesto apresenta informações essenciais sobre o aplicativo
+ao sistema Android, necessárias para o sistema antes que ele possa executar o código do aplicativo.
+
+1) Nomear o pacote Java para o aplicativo.
+
+2) Descrever os componentes do aplicativo, que abrangem atividades, serviços, receptores de
+   transmissão e provedores de conteúdo que compõem o aplicativo.
+
+3) Determinar os processos que hospedam os componentes de aplicativo.
+
+4) Declarar as permissões que o aplicativo deve ter para acessar partes protegidas da API e interagir
+com outros aplicativos.
+
+5) Listar as classes Instrumentation que fornecem geração de perfil e outras informações durante a
+execução do aplicativo.
+
+6) *Declarar o nível mínimo da Android API que o aplicativo exige.
+
+7) *Listar as bibliotecas às quais o aplicativo deve se vincular.
+
+Fonte: https://developer.android.com/guide/topics/manifest/manifest-intro.html?hl=pt-br
+-->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ceiot.com.br.appceiot">
+    <!--
+    <uses-permission />
+    <permission />
+    <permission-tree />
+    <permission-group />
+    <instrumentation />
+    <uses-sdk />
+    <uses-configuration />
+    <uses-feature />
+    <supports-screens />
+    <compatible-screens />
+    <supports-gl-texture />
+    -->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+        <activity>
+            <intent-filter>
+                <action />
+                <category />
+                <data />
+            </intent-filter>
+            <meta-data />
+        </activity>
+
+        <service>
+            <intent-filter> . . . </intent-filter>
+            <meta-data/>
+        </service>
+
+        <receiver>
+            <intent-filter> . . . </intent-filter>
+            <meta-data />
+        </receiver>
+
+        <provider>
+            <grant-uri-permission />
+            <meta-data />
+            <path-permission />
+        </provider>
+
+
+        <uses-library />
+        -->
+
+    </application>
+
+</manifest>

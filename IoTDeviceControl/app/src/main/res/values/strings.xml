@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">IoT Device Control</string>
+    <string name="refresh">Atualizar</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Excluir</string>
+    <string name="nome">Nome</string>
+    <string name="descricao">Descrição</string>
+    <string name="dtatualizacao">Última iteração em</string>
+    <string name="topicomqtt">Tópico MQTT</string>
+    <string name="status">Status</string>
+</resources>

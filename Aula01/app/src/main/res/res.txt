@@ -1,0 +1,25 @@
+TODO (3) Res Folder
+
+O diretório res é onde devem ser colocadas imagens, strings e layouts.
+
+MyProject/
+    src/
+        MyActivity.java
+    res/
+        drawable/
+            graphic.png
+        layout/
+            main.xml
+            info.xml
+        mipmap/
+            icon.png
+        values/
+            strings.xml
+
+Os diferentes tipos de recursos como imagens e layouts devem ser mantidos separados no diretório res.
+Manter os arquivos de recursos e de valores de forma independente ajuda a facilitar a manutenção
+da aplicação.
+
+
+
+Fonte: https://developer.android.com/guide/topics/resources/providing-resources.html

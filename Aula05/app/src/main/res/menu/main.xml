@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<menu>
+Define um Menu, que é um recipiente para os itens de menu.
+Um elemento <menu> deve ser o nodo raiz para o arquivo e pode reter um ou mais
+elementos <item> e <group>.
+<item>
+Cria um MenuItem, que representa um único item em um menu. Esse elemento pode conter um elemento
+<menu> aninhado para criar um submenu.
+<group>
+Um contêiner invisível e opcional para os elementos <item>. Ele permite que você categorize itens
+de menu para que eles compartilhem propriedades como estado ativo e visibilidade. Para obter mais
+informações, consulte a seção Criação de grupos de menu.
+
+orderInCategory
+ifRoom Show this item if there is room
+
+Fonte: https://developer.android.com/guide/topics/ui/menus.html?hl=pt-br
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+    android:id="@+id/action_search"
+    android:orderInCategory="1"
+    app:showAsAction="ifRoom"
+    android:title="@string/search"/>
+    <item
+        android:id="@+id/action_create"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        android:title="@string/create"/>
+</menu>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- TODO: (4) Layout
+O layout define a estrutura visual para uma interface do usuário
+
+Declarar elementos da interface em XML.
+
+Instanciar elementos do layout em tempo de execução.
+
+
+Extensões da classe View ...
+    TextView:  Cria texto na tela; geralmente texto não interativo
+    EditText:  Cria uma entrada de texto na tela
+    ImageView: Cria uma imagem na tela
+    Button:    Cria um botão na tela
+    ListView:    Cria uma lista em tela
+
+View Group:
+
+ Extensões da classe chamada ViewGroup, são responsáveis por conter um grupo de visualizações e
+ determinar onde elas se localizam na tela
+
+ LinearLayout	Layout que organiza os filhos em uma única linha horizontal ou vertical
+
+ RelativeLayout	Exibe uma visualização posicionada em relação a elas e essa visualização
+
+ WebView        Exibe páginas da Web.
+
+ FrameLayout	Um ViewGroup significa a visualização de uma única filha
+
+ ScrollView	    Um FrameLayout que foi projetado para permitir que o usuário role o conteúdo na
+                visualização
+
+
+Atributos:
+    id:
+    layout_width:
+    layout_height:
+    padding:
+    text:
+    textSize:
+    orientation:
+    layout_gravity:
+    ...
+
+    wrap_content: Instrui a exibição a se redimensionar de acordo com as medidas exigidas pelo conteúdo.
+    match_parent: Instrui a exibição a assumir o maior tamanho permitido pelo grupo de exibições pais.
+
+Fonte: https://developer.android.com/guide/topics/ui/declaring-layout.html?hl=pt-br
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ceiot.com.br.appceiot.MainActivity">
+
+    <TextView
+        android:id="@+id/textView1_aula01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Hello World!" />
+
+    <TextView
+        android:id="@+id/textView2_aula01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
+
+    <!--
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></ListView>
+    -->
+
+    <!-- TODO: (6) Button
+    Vamos descomentar abaixo para criar um botão que irá realizar a chamada para um método que irá
+    alterar o valor dos textos acima em tempo de execução
+    -->
+    <Button
+        android:id="@+id/button_example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_text"/>
+</LinearLayout>
