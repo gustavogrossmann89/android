@@ -26,7 +26,7 @@ public class RestUtil {
     final static String EQUAL_TO = "equalTo";
 
     public static URL buildUrl(String entity, String query) {
-        Uri builtUri = Uri.parse(BASE_URL+ "/"  + entity +".json" ).buildUpon().build();
+        Uri builtUri = Uri.parse(BASE_URL+ "/"  + entity +".json?" + query).buildUpon().build();
 
         URL url = null;
         try {
@@ -240,6 +240,8 @@ public class RestUtil {
             JSONArray jsonArray = jsonObject.names();
             for (int i = 0; i <jsonArray.length(); i++) {
                 JSONObject obj = jsonObject.getJSONObject(jsonArray.getString(i));
+                String id = obj.getString("id");
+                String userid = obj.getString("userid");
                 String nome = obj.getString("nome");
                 String descricao = obj.getString("descricao");
                 String mqttid = obj.getString("mqttid");
@@ -247,7 +249,7 @@ public class RestUtil {
                 String alarmstatus = obj.getString("alarmstatus");
                 String installationstatus = obj.getString("installationstatus");
                 String data = obj.getString("dtatualizacao");
-                Node node = new Node(nome,descricao,mqttid, lockstatus, alarmstatus, installationstatus, data);
+                Node node = new Node(id, userid, nome,descricao,mqttid, lockstatus, alarmstatus, installationstatus, data);
                 listNode.add(node);
             }
         }catch (Exception e)
@@ -261,6 +263,8 @@ public class RestUtil {
         Node node = null;
         try {
             JSONObject obj = new JSONObject(json);
+            String id = obj.getString("id");
+            String userid = obj.getString("userid");
             String nome = obj.getString("nome");
             String descricao = obj.getString("descricao");
             String mqttid = obj.getString("mqttid");
@@ -268,7 +272,7 @@ public class RestUtil {
             String alarmstatus = obj.getString("alarmstatus");
             String installationstatus = obj.getString("installationstatus");
             String data = obj.getString("dtatualizacao");
-            node = new Node(nome,descricao,mqttid, lockstatus, alarmstatus, installationstatus, data);
+            node = new Node(id, userid, nome,descricao,mqttid, lockstatus, alarmstatus, installationstatus, data);
         }catch (Exception e)
         {
             e.printStackTrace();
@@ -280,6 +284,8 @@ public class RestUtil {
     {
         JSONObject jsonObject= new JSONObject();
         try {
+            jsonObject.put("id", node.getId());
+            jsonObject.put("userid", node.getUserid());
             jsonObject.put("nome", node.getNome());
             jsonObject.put("descricao", node.getDescricao());
             jsonObject.put("mqttid", node.getMqttid());
@@ -288,7 +294,7 @@ public class RestUtil {
             jsonObject.put("installationstatus", node.getInstallationstatus());
             jsonObject.put("dtatualizacao", node.getDtatualizacao());
 
-            return doPut(url, jsonObject.toString());
+            return doPost(url, jsonObject.toString());
         } catch (Exception e) {
             e.printStackTrace();
             return "";
@@ -299,6 +305,8 @@ public class RestUtil {
     {
         JSONObject jsonObject= new JSONObject();
         try {
+            jsonObject.put("id", node.getId());
+            jsonObject.put("userid", node.getUserid());
             jsonObject.put("nome", node.getNome());
             jsonObject.put("descricao", node.getDescricao());
             jsonObject.put("mqttid", node.getMqttid());
@@ -319,6 +327,8 @@ public class RestUtil {
     {
         JSONObject jsonObject= new JSONObject();
         try {
+            jsonObject.put("id", node.getId());
+            jsonObject.put("userid", node.getUserid());
             jsonObject.put("nome", node.getNome());
             jsonObject.put("descricao", node.getDescricao());
             jsonObject.put("mqttid", node.getMqttid());

@@ -16,10 +16,12 @@ import java.util.Date;
 
 public class EditNodeActivity extends AppCompatActivity {
 
-    private TextView nameTextView;
+    private EditText nameEditText;
     private EditText descEditText;
     private EditText mqttidEditText;
 
+    String id;
+    String userid;
     String nome;
     String descricao;
     String mqttid;
@@ -34,6 +36,12 @@ public class EditNodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_node);
 
         Intent intent = getIntent();
+        if (intent.hasExtra(Node.NODE_ID)) {
+            id = intent.getStringExtra(Node.NODE_ID);
+        }
+        if (intent.hasExtra(Node.NODE_USERID)) {
+            userid = intent.getStringExtra(Node.NODE_USERID);
+        }
         if (intent.hasExtra(Node.NODE_NOME)) {
             nome = intent.getStringExtra(Node.NODE_NOME);
         }
@@ -56,8 +64,8 @@ public class EditNodeActivity extends AppCompatActivity {
             data = intent.getStringExtra(Node.NODE_DTATUALIZACAO);
         }
 
-        nameTextView = (TextView) findViewById(R.id.name_text);
-        nameTextView.setText(nome);
+        nameEditText = (EditText) findViewById(R.id.name_editText);
+        nameEditText.setText(nome);
         mqttidEditText = (EditText) findViewById(R.id.mqttid_editText);
         mqttidEditText.setText(mqttid);
         descEditText = (EditText) findViewById(R.id.desc_editText);
@@ -71,10 +79,14 @@ public class EditNodeActivity extends AppCompatActivity {
 
     public void onClickEditNode(View view) {
 
+        String name = nameEditText.getText().toString();
         String description = descEditText.getText().toString();
         String mqttid = mqttidEditText.getText().toString();
 
-        if (description.length() == 0) {
+        if (name.length() == 0) {
+            Toast.makeText(this,"Nome não pode ser vazio",Toast.LENGTH_LONG);
+            return;
+        } else if (description.length() == 0) {
             Toast.makeText(this,"Descrição não pode ser vazia",Toast.LENGTH_LONG);
             return;
         } else if (mqttid.length() == 0) {
@@ -82,7 +94,7 @@ public class EditNodeActivity extends AppCompatActivity {
             return;
         }
 
-        URL createUrl = RestUtil.buildUrl("nodes/" + nome,null);
+        URL createUrl = RestUtil.buildUrl("nodes/" + id,null);
         new NodeUpdateTask().execute(createUrl);
 
         finish();
@@ -94,13 +106,14 @@ public class EditNodeActivity extends AppCompatActivity {
         protected String doInBackground(URL... urls) {
             URL createUrl = urls[0];
 
+            String name = nameEditText.getText().toString();
             String description = descEditText.getText().toString();
             String mqttid = mqttidEditText.getText().toString();
             String data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
             String result = null;
             try {
-                result = RestUtil.updateOnFirebase(createUrl,new Node(nome, description, mqttid, lockstatus, alarmstatus, installationstatus, data));
+                result = RestUtil.updateOnFirebase(createUrl,new Node(id, userid, name, description, mqttid, lockstatus, alarmstatus, installationstatus, data));
             } catch (Exception e) {
                 e.printStackTrace();
             }

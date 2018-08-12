@@ -31,6 +31,8 @@ public class NodeActivity extends AppCompatActivity {
 
     AndroidMqttClient mqttClient;
 
+    //TextView idTextView;
+    //TextView useridTextView;
     TextView nomeTextView;
     TextView descricaoTextView;
     TextView mqttidTextView;
@@ -41,6 +43,8 @@ public class NodeActivity extends AppCompatActivity {
     Switch switchRadioLockBtn;
     Switch switchRadioAlarmBtn;
 
+    String id;
+    String userid;
     String nome;
     String descricao;
     String mqttid;
@@ -55,6 +59,12 @@ public class NodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_node);
 
         Intent intent = getIntent();
+        if (intent.hasExtra(Node.NODE_ID)) {
+            id = intent.getStringExtra(Node.NODE_ID);
+        }
+        if (intent.hasExtra(Node.NODE_USERID)) {
+            userid = intent.getStringExtra(Node.NODE_USERID);
+        }
         if (intent.hasExtra(Node.NODE_NOME)) {
             nome = intent.getStringExtra(Node.NODE_NOME);
         }
@@ -102,12 +112,14 @@ public class NodeActivity extends AppCompatActivity {
 
     public void refresh()
     {
-        URL searchUrl = RestUtil.buildUrl("nodes/" + nome,null);
+        URL searchUrl = RestUtil.buildUrl("nodes/" + id,null);
         new NodeActivity.NodeRefreshTask().execute(searchUrl);
     }
 
     public void refreshValues(Node node)
     {
+        id = node.getId();
+        userid = node.getUserid();
         nome = node.getNome();
         mqttid = node.getMqttid();
         descricao = node.getDescricao();
@@ -191,7 +203,7 @@ public class NodeActivity extends AppCompatActivity {
     public void changeLockStatus(View view)
     {
         publishLock();
-        URL createUrl = RestUtil.buildUrl("nodes/" + nome,null);
+        URL createUrl = RestUtil.buildUrl("nodes/" + id,null);
         new NodeActivity.NodeUpdateTask().execute(createUrl);
         refresh();
     }
@@ -199,14 +211,14 @@ public class NodeActivity extends AppCompatActivity {
     public void changeAlarmStatus(View view)
     {
         publishAlarm();
-        URL createUrl = RestUtil.buildUrl("nodes/" + nome,null);
+        URL createUrl = RestUtil.buildUrl("nodes/" + id,null);
         new NodeActivity.NodeUpdateTask().execute(createUrl);
         refresh();
     }
 
     public void deleteNode()
     {
-        URL createUrl = RestUtil.buildUrl("nodes/" + nome,null);
+        URL createUrl = RestUtil.buildUrl("nodes/" + id,null);
         new NodeActivity.NodeDeleteTask().execute(createUrl);
         finish();
     }
@@ -257,7 +269,7 @@ public class NodeActivity extends AppCompatActivity {
 
             String result = null;
             try {
-                result = RestUtil.updateOnFirebase(createUrl,new Node(nome, descricao, mqttid, lockstatus, alarmstatus, installationstatus, data));
+                result = RestUtil.updateOnFirebase(createUrl,new Node(id, userid, nome, descricao, mqttid, lockstatus, alarmstatus, installationstatus, data));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -284,7 +296,7 @@ public class NodeActivity extends AppCompatActivity {
 
             String result = null;
             try {
-                result = RestUtil.deleteOnFirebase(createUrl,new Node(nome, descricao, mqttid, lockstatus, alarmstatus, installationstatus, data));
+                result = RestUtil.deleteOnFirebase(createUrl,new Node(id, userid, nome, descricao, mqttid, lockstatus, alarmstatus, installationstatus, data));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -311,6 +323,8 @@ public class NodeActivity extends AppCompatActivity {
             Context context = NodeActivity.this;
             Class destinationActivity = EditNodeActivity.class;
             Intent startChildActivityIntent = new Intent(context, destinationActivity);
+            startChildActivityIntent.putExtra(Node.NODE_ID, id);
+            startChildActivityIntent.putExtra(Node.NODE_USERID, userid);
             startChildActivityIntent.putExtra(Node.NODE_NOME, nome);
             startChildActivityIntent.putExtra(Node.NODE_DESCRICAO, descricao);
             startChildActivityIntent.putExtra(Node.NODE_MQTTID, mqttid);

@@ -1,6 +1,8 @@
 package gustavogr.iotsmartlock;
 
 public class Node {
+    public static final String NODE_ID = "iotsmartlock.node.id";
+    public static final String NODE_USERID = "iotsmartlock.node.userid";
     public static final String NODE_NOME = "iotsmartlock.node.nome";
     public static final String NODE_DESCRICAO = "iotsmartlock.node.descricao";
     public static final String NODE_MQTTID = "iotsmartlock.node.mqttid";
@@ -9,6 +11,8 @@ public class Node {
     public static final String NODE_INSTALLATIONSTATUS = "iotsmartlock.node.installationstatus";
     public static final String NODE_DTATUALIZACAO = "iotsmartlock.node.dtatualizacao";
 
+    private String id;
+    private String userid;
     private String nome;
     private String descricao;
     private String mqttid;
@@ -17,7 +21,9 @@ public class Node {
     private String installationstatus;
     private String dtatualizacao;
 
-    public Node(String nome, String descricao, String mqttid, String lockstatus, String alarmstatus, String installationstatus, String dtatualizacao) {
+    public Node(String id, String userid, String nome, String descricao, String mqttid, String lockstatus, String alarmstatus, String installationstatus, String dtatualizacao) {
+        this.id = id;
+        this.userid = userid;
         this.nome = nome;
         this.descricao = descricao;
         this.mqttid = mqttid;
@@ -25,6 +31,22 @@ public class Node {
         this.alarmstatus = alarmstatus;
         this.installationstatus = installationstatus;
         this.dtatualizacao = dtatualizacao;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public String getNome() {
@@ -82,7 +104,9 @@ public class Node {
     @Override
     public String toString() {
         return "Node{" +
-                "nome='" + nome + '\'' +
+                "id='" + id + '\'' +
+                ", userid='" + userid + '\'' +
+                ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", mqttid='" + mqttid + '\'' +
                 ", lockstatus='" + lockstatus + '\'' +

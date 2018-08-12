@@ -1,0 +1,228 @@
+{
+  "project_info": {
+    "project_number": "52447154764",
+    "firebase_url": "https://fir-analyticexample.firebaseio.com",
+    "project_id": "fir-analyticexample",
+    "storage_bucket": "fir-analyticexample.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52447154764:android:9fc21c18de446468",
+        "android_client_info": {
+          "package_name": "com.inducesmile.firebaseanalytic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52447154764-avfm91p1k614og8ukg2lj58r0p6skgrq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCODC1CEgqkvEWijkxgWjQUR2F1Fs1zBrE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52447154764:android:e2d22d292f07a3ce",
+        "android_client_info": {
+          "package_name": "com.inducesmile.firebasecloudmessaging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52447154764-avfm91p1k614og8ukg2lj58r0p6skgrq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCODC1CEgqkvEWijkxgWjQUR2F1Fs1zBrE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52447154764:android:ca82817353a6cc4a",
+        "android_client_info": {
+          "package_name": "com.inducesmile.androidwebviewtowebsite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52447154764-avfm91p1k614og8ukg2lj58r0p6skgrq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCODC1CEgqkvEWijkxgWjQUR2F1Fs1zBrE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52447154764:android:b6322969a9660c7d",
+        "android_client_info": {
+          "package_name": "com.inducesmile.androidfirebaseui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52447154764-avfm91p1k614og8ukg2lj58r0p6skgrq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCODC1CEgqkvEWijkxgWjQUR2F1Fs1zBrE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52447154764:android:a946d230f0f82aa8",
+        "android_client_info": {
+          "package_name": "com.inducesmile.androidfirebaseadmob"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52447154764-avfm91p1k614og8ukg2lj58r0p6skgrq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCODC1CEgqkvEWijkxgWjQUR2F1Fs1zBrE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52447154764:android:9f3f5c92cec5a5e4",
+        "android_client_info": {
+          "package_name": "com.inducesmile.androidfirebaserealtimedatabase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52447154764-avfm91p1k614og8ukg2lj58r0p6skgrq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCODC1CEgqkvEWijkxgWjQUR2F1Fs1zBrE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52447154764:android:69ce6d1f4c6842c0",
+        "android_client_info": {
+          "package_name": "com.inducesmile.androidfirebasechat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52447154764-avfm91p1k614og8ukg2lj58r0p6skgrq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCODC1CEgqkvEWijkxgWjQUR2F1Fs1zBrE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

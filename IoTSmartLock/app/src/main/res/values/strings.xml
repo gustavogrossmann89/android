@@ -11,4 +11,11 @@
     <string name="lock_status">Trava</string>
     <string name="alarm_status">Alarme</string>
     <string name="add_node_btn">Adicionar Instalação</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Senha</string>
+    <string name="login_button">LOGIN</string>
+    <string name="sign_up">REGISTRAR-SE</string>
+    <string name="no_text"> </string>
+    <string name="sign_up_button">REGISTRAR-SE</string>
+    <string name="log_in">LOGIN</string>
 </resources>
