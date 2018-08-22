@@ -20,7 +20,6 @@ public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = SignUpActivity.class.getSimpleName();
     private EditText emailInput;
     private EditText passwordInput;
-    private TextView signUpText;
     private TextView loginError;
     private FirebaseAuth mAuth;
 
@@ -46,8 +45,8 @@ public class SignUpActivity extends AppCompatActivity {
         emailInput = (EditText)findViewById(R.id.email);
         passwordInput = (EditText)findViewById(R.id.password);
 
-        signUpText = (TextView)findViewById(R.id.register);
-        signUpText.setOnClickListener(new View.OnClickListener() {
+        final Button loginButton = (Button)findViewById(R.id.login_button);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent signUpIntent = new Intent(SignUpActivity.this, LoginActivity.class);
@@ -55,8 +54,8 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        final Button loginButton = (Button)findViewById(R.id.login_button);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        final Button registerButton = (Button)findViewById(R.id.register);
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String enteredEmail = emailInput.getText().toString();
@@ -70,7 +69,10 @@ public class SignUpActivity extends AppCompatActivity {
                     Helper.displayMessageToast(SignUpActivity.this, "E-mail inválido!");
                     return;
                 }
-
+                if(enteredPassword.length() < 6){
+                    Helper.displayMessageToast(SignUpActivity.this, "Sua senha deve conter ao menos 6 caracteres");
+                    return;
+                }
                 ((FirebaseApplication)getApplication()).createNewUser(SignUpActivity.this, enteredEmail, enteredPassword, loginError);
             }
         });

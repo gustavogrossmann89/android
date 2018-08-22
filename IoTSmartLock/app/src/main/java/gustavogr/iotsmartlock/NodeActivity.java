@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -91,6 +92,17 @@ public class NodeActivity extends AppCompatActivity {
         if(ab != null) {
             ab.setTitle(nome);
         }
+
+        FloatingActionButton fabButton = (FloatingActionButton) findViewById(R.id.fab);
+
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addTaskIntent = new Intent(NodeActivity.this, ChartActivity.class);
+                addTaskIntent.putExtra("nodeid", mqttid);
+                startActivity(addTaskIntent);
+            }
+        });
 
         refreshScreen();
 

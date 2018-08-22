@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/empty"
+        android:title="Relatórios"
+        android:orderInCategory="101"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_more">
+
+        <menu>
+        <item
+            android:id="@+id/action_chart1"
+            android:orderInCategory="1"
+            android:title="Aberturas da instalação (hoje)"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/action_chart2"
+            android:orderInCategory="2"
+            android:title="Aberturas da instalação (por dia)"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/action_chart3"
+            android:orderInCategory="3"
+            android:title="Aberturas da instalação (por mês)"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/action_chart4"
+            android:orderInCategory="4"
+            android:title="Relatório de disparos do alarme"
+            app:showAsAction="ifRoom" />
+        </menu>
+    </item>
+</menu>

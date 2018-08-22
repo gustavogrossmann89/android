@@ -84,13 +84,13 @@ public class EditNodeActivity extends AppCompatActivity {
         String mqttid = mqttidEditText.getText().toString();
 
         if (name.length() == 0) {
-            Toast.makeText(this,"Nome não pode ser vazio",Toast.LENGTH_LONG);
+            Helper.displayMessageToast(this, "Nome não pode ser vazio");
             return;
         } else if (description.length() == 0) {
-            Toast.makeText(this,"Descrição não pode ser vazia",Toast.LENGTH_LONG);
+            Helper.displayMessageToast(this, "Descrição não pode ser vazia");
             return;
         } else if (mqttid.length() == 0) {
-            Toast.makeText(this,"MQTT ID não pode ser vazio",Toast.LENGTH_LONG);
+            Helper.displayMessageToast(this, "MQTT ID não pode ser vazio");
             return;
         }
 

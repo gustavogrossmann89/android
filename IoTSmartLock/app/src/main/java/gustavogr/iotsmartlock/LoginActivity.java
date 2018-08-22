@@ -20,7 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
     private EditText emailInput;
     private EditText passwordInput;
-    private TextView signUpText;
     private TextView loginError;
 
     private FirebaseAuth mAuth;
@@ -47,8 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         emailInput = (EditText)findViewById(R.id.email);
         passwordInput = (EditText)findViewById(R.id.password);
 
-        signUpText = (TextView)findViewById(R.id.register);
-        signUpText.setOnClickListener(new View.OnClickListener() {
+        final Button registerButton = (Button)findViewById(R.id.register);
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent signUpIntent = new Intent(LoginActivity.this, SignUpActivity.class);

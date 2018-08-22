@@ -57,14 +57,19 @@ public class FirebaseApplication extends Application {
         };
     }
 
-    public void createNewUser(Context context, String email, String password, final TextView errorMessage){
+    public void createNewUser(final Context context, String email, String password, final TextView errorMessage){
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
                 if (!task.isSuccessful()) {
-                    errorMessage.setText("Erro no registro de novo usuário!");
+                    Log.w(TAG, "signInWithEmail", task.getException());
+                    Helper.displayMessageToast(context, "Erro no registro de novo usuário");
+                }else {
+                    Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+                    Intent listIntent = new Intent(context, ListActivity.class);
+                    listIntent.putExtra("userid", task.getResult().getUser().getUid());
+                    context.startActivity(listIntent);
                 }
             }
         });

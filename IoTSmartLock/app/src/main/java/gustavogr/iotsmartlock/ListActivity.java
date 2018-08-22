@@ -80,7 +80,7 @@ public class ListActivity extends AppCompatActivity implements NodeAdapter.ListI
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemThatWasClickedId = item.getItemId();
         if (itemThatWasClickedId == R.id.action_refresh) {
-            Toast.makeText(this,"Atualizando lista de sensores", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Atualizando lista de instalações", Toast.LENGTH_SHORT).show();
             atualizar(userid);
             return true;
         }
@@ -115,7 +115,7 @@ public class ListActivity extends AppCompatActivity implements NodeAdapter.ListI
         @Override
         protected void onPostExecute(String result) {
             if (result != null && !result.equals("")) {
-                List<Node> listNodesRecycler = RestUtil.parseJSONArray(result);
+                List<Node> listNodesRecycler = RestUtil.parseNodeJSONArray(result);
                 ((NodeAdapter)mAdapter).resetList(listNodesRecycler);
 
             } else {

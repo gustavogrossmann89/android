@@ -233,7 +233,7 @@ public class RestUtil {
         return sb.toString();
     }
 
-    public static List<Node> parseJSONArray(String json) {
+    public static List<Node> parseNodeJSONArray(String json) {
         List<Node> listNode = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
@@ -257,6 +257,28 @@ public class RestUtil {
             e.printStackTrace();
         }
         return listNode;
+    }
+
+    public static List<ActionLog> parseActionLogJSONArray(String json) {
+        List<ActionLog> listActionLog = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray jsonArray = jsonObject.names();
+            for (int i = 0; i <jsonArray.length(); i++) {
+                JSONObject obj = jsonObject.getJSONObject(jsonArray.getString(i));
+                String node = obj.getString("node");
+                String topic = obj.getString("topic");
+                String date = obj.getString("date");
+                String time = obj.getString("time");
+                String msg = obj.getString("msg");
+                ActionLog actionLog = new ActionLog(node, topic, date, time, msg);
+                listActionLog.add(actionLog);
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return listActionLog;
     }
 
     public static Node parseJSON(String json) {

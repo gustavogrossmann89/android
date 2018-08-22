@@ -39,6 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:background="@drawable/bottom_border"
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
@@ -53,6 +55,9 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:background="@drawable/bottom_border"
         android:hint="@string/password_hint"
         android:inputType="textPassword"
@@ -60,14 +65,16 @@
         android:singleLine="true"
         android:textColor="@color/colorBlack"
         app:layout_constraintTop_toBottomOf="@+id/email"
-        tools:layout_editor_absoluteX="0dp"
-        tools:ignore="MissingConstraints"/>
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/login_button"
         android:textColor="@color/colorWhite"
@@ -76,23 +83,23 @@
         tools:layout_editor_absoluteX="0dp"
         tools:ignore="MissingConstraints"/>
 
-    <TextView
+    <Button
         android:id="@+id/register"
-        android:layout_width="0dp"
-        android:layout_height="50px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/colorRed"
         android:text="@string/sign_up"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_button"
-        app:layout_constraintVertical_bias="0.509" />
+        app:layout_constraintVertical_bias="0.263" />
 </android.support.constraint.ConstraintLayout>
