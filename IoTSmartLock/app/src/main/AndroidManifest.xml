@@ -10,27 +10,27 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
-        android:name=".FirebaseApplication"
+        android:name=".DataBase.FirebaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/iot_smart_lock"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/iot_smart_lock_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".ListActivity"></activity>
-        <activity android:name=".AddNodeActivity"></activity>
-        <activity android:name=".EditNodeActivity"></activity>
-        <activity android:name=".NodeActivity"></activity>
-        <activity android:name=".ChartActivity"></activity>
+        <activity android:name=".Activity.LoginActivity"></activity>
+        <activity android:name=".Activity.SignUpActivity"></activity>
+        <activity android:name=".Activity.ListActivity"></activity>
+        <activity android:name=".Activity.AddNodeActivity"></activity>
+        <activity android:name=".Activity.EditNodeActivity"></activity>
+        <activity android:name=".Activity.NodeActivity"></activity>
+        <activity android:name=".Activity.ChartActivity"></activity>
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />
 

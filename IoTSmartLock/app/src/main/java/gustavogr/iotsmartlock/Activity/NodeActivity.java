@@ -1,8 +1,9 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.Activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import gustavogr.iotsmartlock.MQTT.AndroidMqttClient;
+import gustavogr.iotsmartlock.Model.Node;
+import gustavogr.iotsmartlock.MQTT.MqttCallbackHandler;
+import gustavogr.iotsmartlock.R;
+import gustavogr.iotsmartlock.Util.RestUtil;
 
 public class NodeActivity extends AppCompatActivity {
 
@@ -90,12 +98,12 @@ public class NodeActivity extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         if(ab != null) {
-            ab.setTitle(nome);
+            ab.setTitle("Detalhes da instalação");
         }
 
-        FloatingActionButton fabButton = (FloatingActionButton) findViewById(R.id.fab);
+        Button chartButton = (Button) findViewById(R.id.chartBtn);
 
-        fabButton.setOnClickListener(new View.OnClickListener() {
+        chartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent addTaskIntent = new Intent(NodeActivity.this, ChartActivity.class);
@@ -148,7 +156,7 @@ public class NodeActivity extends AppCompatActivity {
         mqttidTextView = (TextView) findViewById(R.id.node_mqttid);
         mqttidTextView.setText("MQTT ID: " + mqttid);
         descricaoTextView = (TextView) findViewById(R.id.node_descricao);
-        descricaoTextView.setText("Descrição: " + descricao);
+        descricaoTextView.setText(descricao);
         dataTextView = (TextView) findViewById(R.id.node_dtatualizacao);
         dataTextView.setText("Última iteração em: " + data);
 
@@ -159,20 +167,20 @@ public class NodeActivity extends AppCompatActivity {
         switchRadioLockBtn = (Switch) findViewById(R.id.node_switchLockBtn);
         switchRadioAlarmBtn = (Switch) findViewById(R.id.node_switchAlarmBtn);
 
-        if(lockstatus.equals("1")){
+        if(lockstatus.equals("0")){
             switchRadioLockBtn.setChecked(true);
-            lockStatusTextView.setText("Trava: ON");
+            lockStatusTextView.setTextColor(Color.RED);
         } else {
             switchRadioLockBtn.setChecked(false);
-            lockStatusTextView.setText("Trava: OFF");
+            lockStatusTextView.setTextColor(Color.GREEN);
         }
 
         if(alarmstatus.equals("1")){
             switchRadioAlarmBtn.setChecked(true);
-            alarmStatusTextView.setText("Alarme: ON");
+            alarmStatusTextView.setTextColor(Color.RED);
         } else {
             switchRadioAlarmBtn.setChecked(false);
-            alarmStatusTextView.setText("Alarme: OFF");
+            alarmStatusTextView.setTextColor(Color.GREEN);
         }
 
         if(installationstatus.equals("1")){

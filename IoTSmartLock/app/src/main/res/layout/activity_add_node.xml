@@ -6,7 +6,7 @@
     android:id="@+id/save_button"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="gustavogr.iotsmartlock.AddNodeActivity"
+    tools:context="gustavogr.iotsmartlock.Activity.AddNodeActivity"
     android:background="@color/background">
 
     <TextView

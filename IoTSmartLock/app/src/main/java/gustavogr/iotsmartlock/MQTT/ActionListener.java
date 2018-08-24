@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.MQTT;
 
 import android.util.Log;
 

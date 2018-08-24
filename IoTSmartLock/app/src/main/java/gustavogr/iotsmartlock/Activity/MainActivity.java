@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.Activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+
+import gustavogr.iotsmartlock.R;
 
 public class MainActivity extends AppCompatActivity {
 

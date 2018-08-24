@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.Model;
 
 public class ActionLog {
     public static final String LOG_NODE = "iotsmartlock.log.node";

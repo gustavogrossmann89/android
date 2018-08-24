@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.Activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +18,11 @@ import android.widget.Toast;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import gustavogr.iotsmartlock.Model.Node;
+import gustavogr.iotsmartlock.Util.NodeAdapter;
+import gustavogr.iotsmartlock.R;
+import gustavogr.iotsmartlock.Util.RestUtil;
 
 public class ListActivity extends AppCompatActivity implements NodeAdapter.ListItemClickListener {
 

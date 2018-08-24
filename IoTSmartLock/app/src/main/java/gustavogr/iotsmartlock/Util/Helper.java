@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.Util;
 
 import android.content.Context;
 import android.widget.Toast;

@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.Util;
 
 import android.net.Uri;
 
@@ -17,6 +17,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import gustavogr.iotsmartlock.Model.ActionLog;
+import gustavogr.iotsmartlock.Model.Node;
 
 public class RestUtil {
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="gustavogr.iotsmartlock.SignUpActivity"
+    tools:context="gustavogr.iotsmartlock.Activity.SignUpActivity"
     android:background="@color/background">
 
     <ImageView

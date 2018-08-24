@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.MQTT;
 
 import android.content.Context;
 
@@ -21,7 +21,7 @@ public class AndroidMqttClient {
     private String brokerPort;
     Context context;
 
-    AndroidMqttClient(Context context, String brokerURL, String brokerPort)
+    public AndroidMqttClient(Context context, String brokerURL, String brokerPort)
     {
         this.context = context;
         this.brokerURL = brokerURL;
@@ -29,7 +29,7 @@ public class AndroidMqttClient {
         createMqttClient(new MqttCallbackHandler(this.context.getApplicationContext(), "IoT Smart Lock Callback"));
     }
 
-    AndroidMqttClient(Context context, String brokerURL, String brokerPort, MqttCallback mqttCallback)
+    public AndroidMqttClient(Context context, String brokerURL, String brokerPort, MqttCallback mqttCallback)
     {
         this.context = context;
         this.brokerURL = brokerURL;

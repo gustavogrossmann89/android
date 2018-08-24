@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.Activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -7,12 +7,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import gustavogr.iotsmartlock.Util.Helper;
+import gustavogr.iotsmartlock.Model.Node;
+import gustavogr.iotsmartlock.R;
+import gustavogr.iotsmartlock.Util.RestUtil;
 
 public class EditNodeActivity extends AppCompatActivity {
 

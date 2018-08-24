@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="gustavogr.iotsmartlock.ChartActivity"
+    tools:context="gustavogr.iotsmartlock.Activity.ChartActivity"
     android:background="@color/background">
 
     <com.anychart.anychart.AnyChartView

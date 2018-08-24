@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.Activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -26,6 +26,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import gustavogr.iotsmartlock.Model.ActionLog;
+import gustavogr.iotsmartlock.R;
+import gustavogr.iotsmartlock.Util.RestUtil;
 
 public class ChartActivity extends AppCompatActivity {
 

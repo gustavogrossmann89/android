@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.DataBase;
 
 import android.app.Activity;
 import android.app.Application;
@@ -13,6 +13,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import gustavogr.iotsmartlock.Activity.ListActivity;
+import gustavogr.iotsmartlock.Activity.LoginActivity;
+import gustavogr.iotsmartlock.Util.Helper;
 
 public class FirebaseApplication extends Application {
 

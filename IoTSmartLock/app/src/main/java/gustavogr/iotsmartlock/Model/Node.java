@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.Model;
 
 public class Node {
     public static final String NODE_ID = "iotsmartlock.node.id";

@@ -1,4 +1,4 @@
-package gustavogr.iotsmartlock;
+package gustavogr.iotsmartlock.Activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import gustavogr.iotsmartlock.DataBase.FirebaseApplication;
+import gustavogr.iotsmartlock.Util.Helper;
+import gustavogr.iotsmartlock.R;
 
 public class LoginActivity extends AppCompatActivity {
 
