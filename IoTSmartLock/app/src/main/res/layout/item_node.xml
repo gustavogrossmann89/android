@@ -45,6 +45,5 @@
             android:textColorLink="@android:color/darker_gray"
             android:textSize="14sp"
             tools:text="0" />
-
     </LinearLayout>
 </FrameLayout>

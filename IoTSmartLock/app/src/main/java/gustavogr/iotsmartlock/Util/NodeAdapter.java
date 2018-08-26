@@ -12,6 +12,11 @@ import java.util.List;
 import gustavogr.iotsmartlock.Model.Node;
 import gustavogr.iotsmartlock.R;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Adapter para listagem de instalações
+ */
 public class NodeAdapter extends RecyclerView.Adapter<NodeAdapter.ViewHolder> {
     private List<Node> mDataset;
 
@@ -45,8 +50,7 @@ public class NodeAdapter extends RecyclerView.Adapter<NodeAdapter.ViewHolder> {
         return viewHolder;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView nameTextView;
         public TextView installationStatusTextView;
@@ -91,8 +95,7 @@ public class NodeAdapter extends RecyclerView.Adapter<NodeAdapter.ViewHolder> {
         }
     }
 
-    public void resetList(List<Node> listNodes)
-    {
+    public void resetList(List<Node> listNodes) {
         final int size = mDataset.size();
         mDataset.clear();
         notifyItemRangeRemoved(0, size);

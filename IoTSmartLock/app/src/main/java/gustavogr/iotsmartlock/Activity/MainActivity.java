@@ -11,6 +11,11 @@ import android.view.WindowManager;
 
 import gustavogr.iotsmartlock.R;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Atividade que disponibiliza a splash screen inicial do app
+ */
 public class MainActivity extends AppCompatActivity {
 
     private final int SPLASH_DISPLAY_LENGTH = 5000;

@@ -47,6 +47,11 @@ import gustavogr.iotsmartlock.R;
 import gustavogr.iotsmartlock.Util.Helper;
 import gustavogr.iotsmartlock.Util.RestUtil;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Atividade que apresenta as informações de determinada instalação
+ */
 public class NodeActivity extends AppCompatActivity {
 
     private String mqttServerURL = "iotsmartlock.mooo.com";
@@ -76,6 +81,7 @@ public class NodeActivity extends AppCompatActivity {
     private ImageView imageView;
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
+
     FirebaseStorage storage;
     StorageReference storageReference;
     ProgressDialog pd;
@@ -141,6 +147,17 @@ public class NodeActivity extends AppCompatActivity {
             }
         });
 
+        Button reportButton = (Button) findViewById(R.id.reportBtn);
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent reportTaskIntent = new Intent(NodeActivity.this, ReportActivity.class);
+                reportTaskIntent.putExtra("nodeid", mqttid);
+                reportTaskIntent.putExtra("nome", nome);
+                startActivity(reportTaskIntent);
+            }
+        });
+
         refreshScreen();
 
         try {
@@ -166,16 +183,14 @@ public class NodeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null )
-        {
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null ) {
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
                 uploadImage();
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -183,8 +198,7 @@ public class NodeActivity extends AppCompatActivity {
 
     private void uploadImage() {
 
-        if(filePath != null)
-        {
+        if(filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Salvando...");
             progressDialog.show();
@@ -224,14 +238,12 @@ public class NodeActivity extends AppCompatActivity {
         refresh();
     }
 
-    public void refresh()
-    {
+    public void refresh() {
         URL searchUrl = RestUtil.buildUrl("nodes/" + id,null);
         new NodeActivity.NodeRefreshTask().execute(searchUrl);
     }
 
-    public void refreshValues(Node node)
-    {
+    public void refreshValues(Node node) {
         id = node.getId();
         userid = node.getUserid();
         nome = node.getNome();
@@ -243,8 +255,7 @@ public class NodeActivity extends AppCompatActivity {
         installationstatus = node.getInstallationstatus();
     }
 
-    public void refreshScreen()
-    {
+    public void refreshScreen() {
         nomeTextView = (TextView) findViewById(R.id.node_nome);
         nomeTextView.setText(nome);
         mqttidTextView = (TextView) findViewById(R.id.node_mqttid);
@@ -284,8 +295,7 @@ public class NodeActivity extends AppCompatActivity {
         }
     }
 
-    public void publishLock()
-    {
+    public void publishLock() {
         String status = null;
         if(switchRadioLockBtn.isChecked()) {
             status = switchRadioLockBtn.getTextOn().toString();
@@ -299,8 +309,7 @@ public class NodeActivity extends AppCompatActivity {
         }
     }
 
-    public void publishAlarm()
-    {
+    public void publishAlarm() {
         String status = null;
         if(switchRadioAlarmBtn.isChecked()) {
             status = switchRadioAlarmBtn.getTextOn().toString();
@@ -314,24 +323,21 @@ public class NodeActivity extends AppCompatActivity {
         }
     }
 
-    public void changeLockStatus(View view)
-    {
+    public void changeLockStatus(View view) {
         publishLock();
         URL createUrl = RestUtil.buildUrl("nodes/" + id,null);
         new NodeActivity.NodeUpdateTask().execute(createUrl);
         refresh();
     }
 
-    public void changeAlarmStatus(View view)
-    {
+    public void changeAlarmStatus(View view) {
         publishAlarm();
         URL createUrl = RestUtil.buildUrl("nodes/" + id,null);
         new NodeActivity.NodeUpdateTask().execute(createUrl);
         refresh();
     }
 
-    public void deleteNode()
-    {
+    public void deleteNode() {
         URL createUrl = RestUtil.buildUrl("nodes/" + id,null);
         new NodeActivity.NodeDeleteTask().execute(createUrl);
         finish();
@@ -457,8 +463,7 @@ public class NodeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private AlertDialog AskOption()
-    {
+    private AlertDialog AskOption() {
         AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                 .setTitle("Excluir")
                 .setMessage("Deseja excluir essa instalação?")

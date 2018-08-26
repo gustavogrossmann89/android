@@ -1,13 +1,10 @@
 package gustavogr.iotsmartlock.Activity;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,14 +15,9 @@ import com.anychart.anychart.AnyChartView;
 import com.anychart.anychart.Cartesian;
 import com.anychart.anychart.CartesianSeriesColumn;
 import com.anychart.anychart.DataEntry;
-import com.anychart.anychart.EnumsAnchor;
-import com.anychart.anychart.HoverMode;
 import com.anychart.anychart.Position;
-import com.anychart.anychart.RangeColors;
 import com.anychart.anychart.ValueDataEntry;
-import com.anychart.anychart.TooltipPositionMode;
 
-import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +28,12 @@ import gustavogr.iotsmartlock.Model.ActionLog;
 import gustavogr.iotsmartlock.R;
 import gustavogr.iotsmartlock.Util.RestUtil;
 
-public class ChartActivity extends AppCompatActivity {
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Atividade que gera os gráficos referentes à uma instalação
+ */
+public class ChartActivity extends AppCompatActivity{
 
     String nodeid;
     String nome;
@@ -54,6 +51,8 @@ public class ChartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_chart);
+
         Intent intent = getIntent();
         if (intent.hasExtra("nodeid")) {
             nodeid = intent.getStringExtra("nodeid");
@@ -73,7 +72,7 @@ public class ChartActivity extends AppCompatActivity {
     public void displayChart(Integer chartId){
 
        if (chartId == R.id.action_chart1 || chartId == R.id.action_chart2 || chartId == R.id.action_chart3 ) {
-            setContentView(R.layout.activity_node_chart);
+            setContentView(R.layout.activity_chart);
             AnyChartView anyChartView = findViewById(R.id.any_chart_view);
             anyChartView.setBackgroundColor("#7EB7FA");
 
@@ -167,11 +166,6 @@ public class ChartActivity extends AppCompatActivity {
             column.getTooltip().setPosition(Position.CENTER_BOTTOM);
             cartesian.setBackground("#7EB7FA");
             anyChartView.setChart(cartesian);
-
-        } else if (chartId == R.id.action_chart4) {
-
-        } else if (chartId == R.id.action_chart5) {
-
         }
     }
 
@@ -196,7 +190,6 @@ public class ChartActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.d("Resultado do GET", result);
             return result;
         }
 
@@ -312,7 +305,7 @@ public class ChartActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.charts_menu, menu);
+        inflater.inflate(R.menu.charts, menu);
         return true;
     }
 

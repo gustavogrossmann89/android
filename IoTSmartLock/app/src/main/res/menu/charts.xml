@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/empty"
-        android:title="Relatórios"
+        android:title="@string/chartBtn"
         android:orderInCategory="101"
         app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_more">
@@ -13,27 +13,17 @@
         <item
             android:id="@+id/action_chart1"
             android:orderInCategory="1"
-            android:title="Qtde de vezes aberta (hoje)"
+            android:title="@string/chart1"
             app:showAsAction="ifRoom" />
         <item
             android:id="@+id/action_chart2"
             android:orderInCategory="2"
-            android:title="Qtde de vezes aberta no mês (por dia)"
+            android:title="@string/chart2"
             app:showAsAction="ifRoom" />
         <item
             android:id="@+id/action_chart3"
             android:orderInCategory="3"
-            android:title="Qtde de vezes aberta no ano (por mês)"
-            app:showAsAction="ifRoom" />
-        <item
-            android:id="@+id/action_chart4"
-            android:orderInCategory="4"
-            android:title="Relatório - detalhes das aberturas"
-            app:showAsAction="ifRoom" />
-        <item
-            android:id="@+id/action_chart5"
-            android:orderInCategory="4"
-            android:title="Relatório de disparos do alarme"
+            android:title="@string/chart3"
             app:showAsAction="ifRoom" />
         </menu>
     </item>

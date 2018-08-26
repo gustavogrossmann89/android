@@ -17,6 +17,11 @@ import gustavogr.iotsmartlock.Model.Node;
 import gustavogr.iotsmartlock.R;
 import gustavogr.iotsmartlock.Util.RestUtil;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Atividade de Editar uma instalação existente
+ */
 public class EditNodeActivity extends AppCompatActivity {
 
     private EditText nameEditText;

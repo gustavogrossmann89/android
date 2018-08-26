@@ -24,6 +24,11 @@ import gustavogr.iotsmartlock.Util.NodeAdapter;
 import gustavogr.iotsmartlock.R;
 import gustavogr.iotsmartlock.Util.RestUtil;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Atividade de Listar todas as instalações do usuário logado
+ */
 public class ListActivity extends AppCompatActivity implements NodeAdapter.ListItemClickListener {
 
     private RecyclerView mRecyclerView;
@@ -77,7 +82,7 @@ public class ListActivity extends AppCompatActivity implements NodeAdapter.ListI
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.list, menu);
         return true;
     }
 
@@ -92,8 +97,7 @@ public class ListActivity extends AppCompatActivity implements NodeAdapter.ListI
         return super.onOptionsItemSelected(item);
     }
 
-    public void atualizar(String userid)
-    {
+    public void atualizar(String userid){
         URL searchUrl = RestUtil.buildUrl("nodes","orderBy=\"userid\"&equalTo=\"" + userid + "\"");
         new NodeSearchTask().execute(searchUrl);
     }
@@ -122,7 +126,6 @@ public class ListActivity extends AppCompatActivity implements NodeAdapter.ListI
             if (result != null && !result.equals("")) {
                 List<Node> listNodesRecycler = RestUtil.parseNodeJSONArray(result);
                 ((NodeAdapter)mAdapter).resetList(listNodesRecycler);
-
             } else {
                 showErrorMessage();
             }
@@ -134,7 +137,7 @@ public class ListActivity extends AppCompatActivity implements NodeAdapter.ListI
         }
 
         @Override
-        protected void onCancelled(String s) {
+        protected void onCancelled(String s){
             super.onCancelled(s);
         }
 
@@ -167,6 +170,5 @@ public class ListActivity extends AppCompatActivity implements NodeAdapter.ListI
         startChildActivityIntent.putExtra(Node.NODE_DTATUALIZACAO, node.getDtatualizacao());
 
         startActivity(startChildActivityIntent);
-
     }
 }

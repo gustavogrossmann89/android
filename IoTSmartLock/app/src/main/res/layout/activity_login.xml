@@ -24,16 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/login_error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/logo"
-        android:textColor="@color/colorAccent"
-        android:text="@string/no_text"/>
-
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
@@ -101,5 +91,5 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_button"
-        app:layout_constraintVertical_bias="0.263" />
+        app:layout_constraintVertical_bias="0.263"/>
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,10 @@
 package gustavogr.iotsmartlock.Model;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Model utilizado para disponibilizar informações das instalações cadastradas
+ */
 public class Node {
     public static final String NODE_ID = "iotsmartlock.node.id";
     public static final String NODE_USERID = "iotsmartlock.node.userid";

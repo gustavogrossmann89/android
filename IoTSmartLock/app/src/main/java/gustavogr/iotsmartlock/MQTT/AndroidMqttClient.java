@@ -12,6 +12,11 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.UnsupportedEncodingException;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Classe para utilização do MQTT PAHO
+ */
 public class AndroidMqttClient {
 
     private static final String TAG = "AndroidMqttClient";

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Criação do layout -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -82,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Trava"
+        android:text="@string/trava"
         android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -117,7 +116,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Alarme"
+        android:text="@string/alarme"
         android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.72"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -178,17 +177,28 @@
 
     <Button
         android:id="@+id/chartBtn"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="Dashboards"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/chartBtn"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/reportBtn" />
+
+    <Button
+        android:id="@+id/reportBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/reportBtn"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@color/colorWhite"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
-
+        app:layout_constraintLeft_toRightOf="@+id/chartBtn"
+        app:layout_constraintRight_toRightOf="parent"/>
 </android.support.constraint.ConstraintLayout>

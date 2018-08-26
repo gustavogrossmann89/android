@@ -1,5 +1,14 @@
 package gustavogr.iotsmartlock.Model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Model utilizado para disponibilizar informações dos logs da instalação
+ */
 public class ActionLog {
     public static final String LOG_NODE = "iotsmartlock.log.node";
     public static final String LOG_TOPIC = "iotsmartlock.log.topic";
@@ -70,5 +79,14 @@ public class ActionLog {
                 ", time='" + time + '\'' +
                 ", msg='" + msg + '\'' +
                 '}';
+    }
+
+    public Date getDateTime(){
+        try {
+            return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(getDate() + " " + getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

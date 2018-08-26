@@ -3,10 +3,14 @@ package gustavogr.iotsmartlock.Util;
 import android.content.Context;
 import android.widget.Toast;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Helper para disponibilização de mensagens
+ */
 public class Helper {
 
     public static final String NAME = "Name";
-
     public static final String EMAIL = "Email";
 
     public static final int SELECT_PICTURE = 2000;

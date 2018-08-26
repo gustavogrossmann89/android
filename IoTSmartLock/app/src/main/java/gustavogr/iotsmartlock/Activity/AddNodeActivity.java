@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -20,6 +19,11 @@ import gustavogr.iotsmartlock.Model.Node;
 import gustavogr.iotsmartlock.R;
 import gustavogr.iotsmartlock.Util.RestUtil;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Atividade de Adicionar uma nova instalação
+ */
 public class AddNodeActivity extends AppCompatActivity {
 
     private static final String TAG = AddNodeActivity.class.getSimpleName();

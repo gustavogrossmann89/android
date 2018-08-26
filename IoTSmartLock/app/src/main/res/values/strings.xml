@@ -18,4 +18,20 @@
     <string name="no_text"> </string>
     <string name="sign_up_button">REGISTRAR-SE</string>
     <string name="log_in">LOGIN</string>
+    <string name="trava">Trava</string>
+    <string name="alarme">Alarme</string>
+    <string name="chartBtn">Gráficos</string>
+    <string name="reportBtn">Relatórios</string>
+    <string name="saveBtn">SALVAR</string>
+    <string name="nameText">Nome da instalação:</string>
+    <string name="nameHint">Dê um nome para sua instaçação</string>
+    <string name="descriptionText">Descrição:</string>
+    <string name="descriptionHint">Descreva sua instalação</string>
+    <string name="mqttText">MQTT ID:</string>
+    <string name="mqttIdHint">Tópico MQTT</string>
+    <string name="chart1">Qtde de vezes aberta (hoje)</string>
+    <string name="chart2">Qtde de vezes aberta no mês (por dia)</string>
+    <string name="chart3">Qtde de vezes aberta no ano (por mês)</string>
+    <string name="report1">Relatório de aberturas da instalação</string>
+    <string name="report2">Relatório de disparos do alarme</string>
 </resources>

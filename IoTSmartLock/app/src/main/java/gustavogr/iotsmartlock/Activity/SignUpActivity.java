@@ -19,12 +19,18 @@ import gustavogr.iotsmartlock.DataBase.FirebaseApplication;
 import gustavogr.iotsmartlock.Util.Helper;
 import gustavogr.iotsmartlock.R;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Atividade de registrar um usuário novo
+ */
 public class SignUpActivity extends AppCompatActivity {
 
     private static final String TAG = SignUpActivity.class.getSimpleName();
     private EditText emailInput;
     private EditText passwordInput;
     private TextView loginError;
+
     private FirebaseAuth mAuth;
 
     @Override
@@ -42,9 +48,6 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         mAuth = ((FirebaseApplication)getApplication()).getFirebaseAuth();
-        //((FirebaseApplication)getApplication()).checkUserLogin(SignUpActivity.this);
-
-        loginError = (TextView)findViewById(R.id.login_error);
 
         emailInput = (EditText)findViewById(R.id.email);
         passwordInput = (EditText)findViewById(R.id.password);

@@ -21,6 +21,11 @@ import java.util.List;
 import gustavogr.iotsmartlock.Model.ActionLog;
 import gustavogr.iotsmartlock.Model.Node;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: classe utilitária para comunicação com a API Rest do Firebase
+ */
 public class RestUtil {
 
     final static String BASE_URL = "https://iotsmartlockgg.firebaseio.com";
@@ -40,8 +45,7 @@ public class RestUtil {
         return url;
     }
 
-    public static String doGet(URL url) throws IOException
-    {
+    public static String doGet(URL url) throws IOException {
         StringBuilder sb = new StringBuilder("");
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
@@ -72,8 +76,7 @@ public class RestUtil {
         return sb.toString();
     }
 
-    public static String doPost(URL url, String json) throws IOException
-    {
+    public static String doPost(URL url, String json) throws IOException {
         StringBuilder sb = new StringBuilder("");
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
@@ -113,8 +116,7 @@ public class RestUtil {
         return sb.toString();
     }
 
-    public static String doPut(URL url, String json) throws IOException
-    {
+    public static String doPut(URL url, String json) throws IOException {
         StringBuilder sb = new StringBuilder("");
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
@@ -154,8 +156,7 @@ public class RestUtil {
         return sb.toString();
     }
 
-    public static String doPatch(URL url, String json) throws IOException
-    {
+    public static String doPatch(URL url, String json) throws IOException {
         StringBuilder sb = new StringBuilder("");
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
@@ -195,8 +196,7 @@ public class RestUtil {
         return sb.toString();
     }
 
-    public static String doDelete(URL url, String json) throws IOException
-    {
+    public static String doDelete(URL url, String json) throws IOException {
         StringBuilder sb = new StringBuilder("");
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
@@ -255,8 +255,7 @@ public class RestUtil {
                 Node node = new Node(id, userid, nome,descricao,mqttid, lockstatus, alarmstatus, installationstatus, data);
                 listNode.add(node);
             }
-        }catch (Exception e)
-        {
+        }catch (Exception e) {
             e.printStackTrace();
         }
         return listNode;
@@ -277,8 +276,7 @@ public class RestUtil {
                 ActionLog actionLog = new ActionLog(node, topic, date, time, msg);
                 listActionLog.add(actionLog);
             }
-        }catch (Exception e)
-        {
+        }catch (Exception e) {
             e.printStackTrace();
         }
         return listActionLog;
@@ -298,15 +296,13 @@ public class RestUtil {
             String installationstatus = obj.getString("installationstatus");
             String data = obj.getString("dtatualizacao");
             node = new Node(id, userid, nome,descricao,mqttid, lockstatus, alarmstatus, installationstatus, data);
-        }catch (Exception e)
-        {
+        }catch (Exception e) {
             e.printStackTrace();
         }
         return node;
     }
 
-    public static String saveOnFirebase(URL url, Node node)
-    {
+    public static String saveOnFirebase(URL url, Node node) {
         JSONObject jsonObject= new JSONObject();
         try {
             jsonObject.put("id", node.getId());
@@ -326,8 +322,7 @@ public class RestUtil {
         }
     }
 
-    public static String updateOnFirebase(URL url, Node node)
-    {
+    public static String updateOnFirebase(URL url, Node node) {
         JSONObject jsonObject= new JSONObject();
         try {
             jsonObject.put("id", node.getId());
@@ -348,8 +343,7 @@ public class RestUtil {
         }
     }
 
-    public static String deleteOnFirebase(URL url, Node node)
-    {
+    public static String deleteOnFirebase(URL url, Node node) {
         JSONObject jsonObject= new JSONObject();
         try {
             jsonObject.put("id", node.getId());

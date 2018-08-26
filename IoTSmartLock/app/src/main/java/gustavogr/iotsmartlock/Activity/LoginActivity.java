@@ -19,6 +19,11 @@ import gustavogr.iotsmartlock.DataBase.FirebaseApplication;
 import gustavogr.iotsmartlock.Util.Helper;
 import gustavogr.iotsmartlock.R;
 
+/**
+ * autor: Gustavo Grossmann
+ * data: Ago/2018
+ * descrição: Atividade de realizar o Login de um usuário já cadastrado
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -43,10 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         mAuth = ((FirebaseApplication)getApplication()).getFirebaseAuth();
-        //((FirebaseApplication)getApplication()).checkUserLogin(LoginActivity.this);
-
-        loginError = (TextView)findViewById(R.id.login_error);
-
         emailInput = (EditText)findViewById(R.id.email);
         passwordInput = (EditText)findViewById(R.id.password);
 
@@ -78,19 +79,5 @@ public class LoginActivity extends AppCompatActivity {
                 ((FirebaseApplication)getApplication()).loginAUser(LoginActivity.this, enteredEmail, enteredPassword, loginError);
             }
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        //mAuth.addAuthStateListener(((FirebaseApplication)getApplication()).mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (((FirebaseApplication)getApplication()).mAuthListener != null) {
-            //mAuth.removeAuthStateListener(((FirebaseApplication)getApplication()).mAuthListener);
-        }
     }
 }

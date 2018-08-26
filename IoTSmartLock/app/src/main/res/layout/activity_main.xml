@@ -5,5 +5,4 @@
     android:layout_height="match_parent"
     android:background="@drawable/iot_smart_lock"
     tools:context="gustavogr.iotsmartlock.Activity.MainActivity">
-
 </RelativeLayout>

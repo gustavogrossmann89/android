@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Criação do layout -->
-<android.support.constraint.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,10 +7,10 @@
     tools:context="gustavogr.iotsmartlock.Activity.ChartActivity"
     android:background="@color/background">
 
-    <com.anychart.anychart.AnyChartView
-        android:id="@+id/any_chart_view"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewNodes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-
-</android.support.constraint.ConstraintLayout>
+        android:paddingBottom="8dp"
+        tools:background="@color/background" />
+</FrameLayout>
