@@ -1,12 +1,16 @@
 package gustavogr.iotsmartlock.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +19,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -31,17 +44,15 @@ import gustavogr.iotsmartlock.MQTT.AndroidMqttClient;
 import gustavogr.iotsmartlock.Model.Node;
 import gustavogr.iotsmartlock.MQTT.MqttCallbackHandler;
 import gustavogr.iotsmartlock.R;
+import gustavogr.iotsmartlock.Util.Helper;
 import gustavogr.iotsmartlock.Util.RestUtil;
 
 public class NodeActivity extends AppCompatActivity {
 
     private String mqttServerURL = "iotsmartlock.mooo.com";
     private String mqttServerPort = "1883";
-
     AndroidMqttClient mqttClient;
 
-    //TextView idTextView;
-    //TextView useridTextView;
     TextView nomeTextView;
     TextView descricaoTextView;
     TextView mqttidTextView;
@@ -62,10 +73,20 @@ public class NodeActivity extends AppCompatActivity {
     String installationstatus;
     String data;
 
+    private ImageView imageView;
+    private Uri filePath;
+    private final int PICK_IMAGE_REQUEST = 71;
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    ProgressDialog pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_node);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         Intent intent = getIntent();
         if (intent.hasExtra(Node.NODE_ID)) {
@@ -101,14 +122,22 @@ public class NodeActivity extends AppCompatActivity {
             ab.setTitle("Detalhes da instalação");
         }
 
-        Button chartButton = (Button) findViewById(R.id.chartBtn);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage();
+            }
+        });
 
+        Button chartButton = (Button) findViewById(R.id.chartBtn);
         chartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent addTaskIntent = new Intent(NodeActivity.this, ChartActivity.class);
-                addTaskIntent.putExtra("nodeid", mqttid);
-                startActivity(addTaskIntent);
+                Intent chartTaskIntent = new Intent(NodeActivity.this, ChartActivity.class);
+                chartTaskIntent.putExtra("nodeid", mqttid);
+                chartTaskIntent.putExtra("nome", nome);
+                startActivity(chartTaskIntent);
             }
         });
 
@@ -121,6 +150,71 @@ public class NodeActivity extends AppCompatActivity {
 
         } catch (MqttException e) {
             e.printStackTrace();
+        }
+
+        //StorageReference gsReference = storage.getReferenceFromUrl("gs://iotsmartlockgg.appspot.com/images/-LKnjvyiAAq9d1MxVVCN");
+        //Glide.with(this).load(gsReference).into(imageView);
+    }
+
+    private void chooseImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Selecione uma imagem/foto para a sua instalação"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null )
+        {
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                imageView.setImageBitmap(bitmap);
+                uploadImage();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void uploadImage() {
+
+        if(filePath != null)
+        {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Salvando...");
+            progressDialog.show();
+
+            StorageReference ref = storageReference.child("images/" + id);
+            ref.putFile(filePath)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressDialog.dismiss();
+                        Helper.displayMessageToast(NodeActivity.this, "Imagem salva com sucesso");
+                        return;
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Helper.displayMessageToast(NodeActivity.this, "Sistema indisponível!");
+                        return;
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                .getTotalByteCount());
+                        progressDialog.setMessage("Salvando: "+(int)progress+"%");
+                    }
+                });
         }
     }
 
@@ -172,7 +266,7 @@ public class NodeActivity extends AppCompatActivity {
             lockStatusTextView.setTextColor(Color.RED);
         } else {
             switchRadioLockBtn.setChecked(false);
-            lockStatusTextView.setTextColor(Color.GREEN);
+            lockStatusTextView.setTextColor(Color.parseColor("#FF309128"));
         }
 
         if(alarmstatus.equals("1")){
@@ -180,7 +274,7 @@ public class NodeActivity extends AppCompatActivity {
             alarmStatusTextView.setTextColor(Color.RED);
         } else {
             switchRadioAlarmBtn.setChecked(false);
-            alarmStatusTextView.setTextColor(Color.GREEN);
+            alarmStatusTextView.setTextColor(Color.parseColor("#FF309128"));
         }
 
         if(installationstatus.equals("1")){

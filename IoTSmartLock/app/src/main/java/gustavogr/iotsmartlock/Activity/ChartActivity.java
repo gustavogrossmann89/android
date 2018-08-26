@@ -1,7 +1,10 @@
 package gustavogr.iotsmartlock.Activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,9 +21,11 @@ import com.anychart.anychart.DataEntry;
 import com.anychart.anychart.EnumsAnchor;
 import com.anychart.anychart.HoverMode;
 import com.anychart.anychart.Position;
+import com.anychart.anychart.RangeColors;
 import com.anychart.anychart.ValueDataEntry;
 import com.anychart.anychart.TooltipPositionMode;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,177 +39,144 @@ import gustavogr.iotsmartlock.Util.RestUtil;
 public class ChartActivity extends AppCompatActivity {
 
     String nodeid;
+    String nome;
+    Integer chartId = 0;
+
+    String currentDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+
+    int manhaHoje = 0;
+    int tardeHoje = 0;
+    int noiteHoje = 0;
+
+    int[] diasDoMes = new int[32];
+    int[] mesesDoAno = new int[13];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        if (intent.hasExtra(nodeid)) {
-            nodeid = intent.getStringExtra(nodeid);
+        if (intent.hasExtra("nodeid")) {
+            nodeid = intent.getStringExtra("nodeid");
+        }
+        if (intent.hasExtra("nome")) {
+            nome = intent.getStringExtra("nome");
+        }
+
+        ActionBar ab = getSupportActionBar();
+        if(ab != null) {
+            ab.setTitle(nome);
         }
 
         searchLogsByNodeId(nodeid);
-        displayChart(R.id.action_chart1);
     }
 
-    public void displayChart(int chartId){
-        if (chartId == R.id.action_chart1) {
+    public void displayChart(Integer chartId){
+
+       if (chartId == R.id.action_chart1 || chartId == R.id.action_chart2 || chartId == R.id.action_chart3 ) {
             setContentView(R.layout.activity_node_chart);
             AnyChartView anyChartView = findViewById(R.id.any_chart_view);
+            anyChartView.setBackgroundColor("#7EB7FA");
 
             Cartesian cartesian = AnyChart.column();
-
-            List<DataEntry> data = new ArrayList<>();
-            data.add(new ValueDataEntry("Manhã", 17));
-            data.add(new ValueDataEntry("Tarde", 17));
-            data.add(new ValueDataEntry("Noite", 34));
-
-            CartesianSeriesColumn column = cartesian.column(data);
-
-            column.getTooltip()
-                    .setPosition(Position.CENTER_BOTTOM)
-                    .setAnchor(EnumsAnchor.CENTER_BOTTOM).setOffsetY(0d);
-
             cartesian.setAnimation(true);
-            cartesian.setTitle("Aberturas da instalação (hoje) - " + new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+            List<DataEntry> data = new ArrayList<>();
 
-            cartesian.getXAxis().setTitle("Período do dia");
-            cartesian.getYAxis().setTitle("Aberturas");
+            CartesianSeriesColumn column = null;
 
-            cartesian.getYAxis().getLabels().setFormat("{%Value}{groupsSeparator: }");
+            if (chartId == R.id.action_chart1) {
+                data.add(new ValueDataEntry("Manhã", manhaHoje));
+                data.add(new ValueDataEntry("Tarde", tardeHoje));
+                data.add(new ValueDataEntry("Noite", noiteHoje));
 
+                column = cartesian.column(data);
+
+                cartesian.setTitle("Qtde de vezes aberta (hoje) - " + new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+                cartesian.getXAxis().setTitle("Período do dia");
+                cartesian.getYAxis().setTitle("Quantidade");
+                cartesian.getYScale().getTicks().setInterval(1);
+
+            } else if (chartId == R.id.action_chart2){
+                data.add(new ValueDataEntry("1", diasDoMes[1]));
+                data.add(new ValueDataEntry("2", diasDoMes[2]));
+                data.add(new ValueDataEntry("3", diasDoMes[3]));
+                data.add(new ValueDataEntry("4", diasDoMes[4]));
+                data.add(new ValueDataEntry("5", diasDoMes[5]));
+                data.add(new ValueDataEntry("6", diasDoMes[6]));
+                data.add(new ValueDataEntry("7", diasDoMes[7]));
+                data.add(new ValueDataEntry("8", diasDoMes[8]));
+                data.add(new ValueDataEntry("9", diasDoMes[9]));
+                data.add(new ValueDataEntry("10", diasDoMes[10]));
+                data.add(new ValueDataEntry("11", diasDoMes[11]));
+                data.add(new ValueDataEntry("12", diasDoMes[12]));
+                data.add(new ValueDataEntry("13", diasDoMes[13]));
+                data.add(new ValueDataEntry("14", diasDoMes[14]));
+                data.add(new ValueDataEntry("15", diasDoMes[15]));
+                data.add(new ValueDataEntry("16", diasDoMes[16]));
+                data.add(new ValueDataEntry("17", diasDoMes[17]));
+                data.add(new ValueDataEntry("18", diasDoMes[18]));
+                data.add(new ValueDataEntry("19", diasDoMes[19]));
+                data.add(new ValueDataEntry("20", diasDoMes[20]));
+                data.add(new ValueDataEntry("21", diasDoMes[21]));
+                data.add(new ValueDataEntry("22", diasDoMes[22]));
+                data.add(new ValueDataEntry("23", diasDoMes[23]));
+                data.add(new ValueDataEntry("24", diasDoMes[24]));
+                data.add(new ValueDataEntry("25", diasDoMes[25]));
+                data.add(new ValueDataEntry("26", diasDoMes[26]));
+                data.add(new ValueDataEntry("27", diasDoMes[27]));
+                data.add(new ValueDataEntry("28", diasDoMes[28]));
+                data.add(new ValueDataEntry("29", diasDoMes[29]));
+                data.add(new ValueDataEntry("30", diasDoMes[30]));
+                data.add(new ValueDataEntry("31", diasDoMes[31]));
+
+                column = cartesian.column(data);
+
+                cartesian.setTitle("Qtde de vezes aberta em " + getMesCorrentePorExtenso() + " (por dia)");
+                cartesian.getXAxis().setTitle("Dia do mês");
+                cartesian.getYAxis().setTitle("Quantidade");
+                cartesian.getYScale().getTicks().setInterval(2);
+
+            } else if(chartId == R.id.action_chart3){
+                data.add(new ValueDataEntry("Janeiro", mesesDoAno[1]));
+                data.add(new ValueDataEntry("Fevereiro", mesesDoAno[2]));
+                data.add(new ValueDataEntry("Março", mesesDoAno[3]));
+                data.add(new ValueDataEntry("Abril", mesesDoAno[4]));
+                data.add(new ValueDataEntry("Maio", mesesDoAno[5]));
+                data.add(new ValueDataEntry("Junho", mesesDoAno[6]));
+                data.add(new ValueDataEntry("Julho", mesesDoAno[7]));
+                data.add(new ValueDataEntry("Agosto", mesesDoAno[8]));
+                data.add(new ValueDataEntry("Setembro", mesesDoAno[9]));
+                data.add(new ValueDataEntry("Outubro", mesesDoAno[10]));
+                data.add(new ValueDataEntry("Novembro", mesesDoAno[11]));
+                data.add(new ValueDataEntry("Dezembro", mesesDoAno[12]));
+
+                column = cartesian.column(data);
+
+                cartesian.setTitle("Qtde de vezes aberta (por mês) - 2018");
+                cartesian.getXAxis().setTitle("Mês");
+                cartesian.getYAxis().setTitle("Quantidade");
+            }
+
+            cartesian.getTitle().setFontColor("black");
+            cartesian.getXAxis().getTitle().setFontColor("black");
+            cartesian.getXAxis().getLabels().setFontColor("black");
+            cartesian.getYAxis().getTitle().setFontColor("black");
+            cartesian.getYAxis().getLabels().setFontColor("black");
+            cartesian.getYAxis().getLabels().setFormat("{%value}");
+
+            column.setColor("#F18C11");
+            column.getTooltip().setPosition(Position.CENTER_BOTTOM);
+            cartesian.setBackground("#7EB7FA");
             anyChartView.setChart(cartesian);
 
-        } else if (chartId == R.id.action_chart2) {
-            setContentView(R.layout.activity_node_chart);
-            AnyChartView anyChartView = findViewById(R.id.any_chart_view);
-
-            Cartesian cartesian = AnyChart.column();
-
-            List<DataEntry> data = new ArrayList<>();
-            data.add(new ValueDataEntry("1", 17));
-            data.add(new ValueDataEntry("2", 17));
-            data.add(new ValueDataEntry("3", 17));
-            data.add(new ValueDataEntry("4", 17));
-            data.add(new ValueDataEntry("5", 17));
-            data.add(new ValueDataEntry("6", 17));
-            data.add(new ValueDataEntry("7", 17));
-            data.add(new ValueDataEntry("8", 17));
-            data.add(new ValueDataEntry("9", 17));
-            data.add(new ValueDataEntry("10", 17));
-            data.add(new ValueDataEntry("11", 17));
-            data.add(new ValueDataEntry("12", 17));
-            data.add(new ValueDataEntry("13", 17));
-            data.add(new ValueDataEntry("14", 34));
-            data.add(new ValueDataEntry("15", 34));
-            data.add(new ValueDataEntry("16", 34));
-            data.add(new ValueDataEntry("17", 34));
-            data.add(new ValueDataEntry("18", 34));
-            data.add(new ValueDataEntry("19", 34));
-            data.add(new ValueDataEntry("20", 34));
-            data.add(new ValueDataEntry("21", 34));
-            data.add(new ValueDataEntry("22", 34));
-            data.add(new ValueDataEntry("23", 34));
-            data.add(new ValueDataEntry("24", 34));
-            data.add(new ValueDataEntry("25", 34));
-            data.add(new ValueDataEntry("26", 34));
-            data.add(new ValueDataEntry("27", 34));
-            data.add(new ValueDataEntry("28", 34));
-            data.add(new ValueDataEntry("29", 34));
-            data.add(new ValueDataEntry("30", 34));
-            data.add(new ValueDataEntry("31", 34));
-
-            CartesianSeriesColumn column = cartesian.column(data);
-
-            column.getTooltip()
-                    .setPosition(Position.CENTER_BOTTOM)
-                    .setAnchor(EnumsAnchor.CENTER_BOTTOM).setOffsetY(0d);
-
-            cartesian.setAnimation(true);
-
-            cartesian.setTitle("Aberturas da instalação (por dia) - Agosto");
-
-            cartesian.getXAxis().setTitle("Dia do mês");
-            cartesian.getYAxis().setTitle("Aberturas");
-
-            cartesian.getYAxis().getLabels().setFormat("{%Value}{groupsSeparator: }");
-
-            anyChartView.setChart(cartesian);
-        } else if (chartId == R.id.action_chart3) {
-            setContentView(R.layout.activity_node_chart);
-            AnyChartView anyChartView = findViewById(R.id.any_chart_view);
-
-            Cartesian cartesian = AnyChart.column();
-
-            List<DataEntry> data = new ArrayList<>();
-            data.add(new ValueDataEntry("Janeiro", 17));
-            data.add(new ValueDataEntry("Fevereiro", 17));
-            data.add(new ValueDataEntry("Março", 34));
-            data.add(new ValueDataEntry("Abril", 17));
-            data.add(new ValueDataEntry("Maio", 17));
-            data.add(new ValueDataEntry("Junho", 17));
-            data.add(new ValueDataEntry("Julho", 17));
-            data.add(new ValueDataEntry("Agosto", 17));
-            data.add(new ValueDataEntry("Setembro", 17));
-            data.add(new ValueDataEntry("Outubro", 17));
-            data.add(new ValueDataEntry("Novembro", 17));
-            data.add(new ValueDataEntry("Dezembro", 17));
-
-            CartesianSeriesColumn column = cartesian.column(data);
-
-            column.getTooltip()
-                    .setPosition(Position.CENTER_BOTTOM)
-                    .setAnchor(EnumsAnchor.CENTER_BOTTOM).setOffsetY(0d);
-
-            cartesian.setAnimation(true);
-            cartesian.setTitle("Aberturas da instalação (por mês) - 2018");
-
-            cartesian.getXAxis().setTitle("Mês");
-            cartesian.getYAxis().setTitle("Aberturas");
-
-            cartesian.getYAxis().getLabels().setFormat("{%Value}{groupsSeparator: }");
-
-            anyChartView.setChart(cartesian);
         } else if (chartId == R.id.action_chart4) {
-            setContentView(R.layout.activity_node_chart);
-            AnyChartView anyChartView = findViewById(R.id.any_chart_view);
 
-            Cartesian cartesian = AnyChart.column();
+        } else if (chartId == R.id.action_chart5) {
 
-            List<DataEntry> data = new ArrayList<>();
-            data.add(new ValueDataEntry("2017", 17));
-            data.add(new ValueDataEntry("2018", 34));
-
-            CartesianSeriesColumn column = cartesian.column(data);
-
-            column.getTooltip()
-                    .setTitleFormat("{%X}")
-                    .setPosition(Position.CENTER_BOTTOM)
-                    .setAnchor(EnumsAnchor.CENTER_BOTTOM)
-                    .setOffsetX(0d)
-                    .setOffsetY(5d)
-                    .setFormat("${%Value}{groupsSeparator: }");
-
-            cartesian.setAnimation(true);
-            cartesian.setTitle("Alterações do estado da trava (por mês)");
-
-            cartesian.getYScale().setMinimum(0d);
-
-            cartesian.getYAxis().getLabels().setFormat("${%Value}{groupsSeparator: }");
-
-            cartesian.getTooltip().setPositionMode(TooltipPositionMode.POINT);
-            cartesian.getInteractivity().setHoverMode(HoverMode.BY_X);
-
-            cartesian.getXAxis().setTitle("Alterações");
-            cartesian.getYAxis().setTitle("Mês");
-
-            anyChartView.setChart(cartesian);
         }
     }
 
-    public void searchLogsByNodeId(String nodeid)
-    {
-       URL searchUrl = RestUtil.buildUrl("logs","orderBy=\"node\"&equalTo=\"00124B000F28C303\"");
+    public void searchLogsByNodeId(String nodeid) {
+       URL searchUrl = RestUtil.buildUrl("logs","orderBy=\"node\"&equalTo=\"" + nodeid + "\"");
        new NodeSearchTask().execute(searchUrl);
     }
 
@@ -232,9 +204,103 @@ public class ChartActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             if (result != null && !result.equals("")) {
                 List<ActionLog> listLogRecycler = RestUtil.parseActionLogJSONArray(result);
-                Log.d("Lista", listLogRecycler.toString());
+                calculaVezesAbertaHoje(listLogRecycler);
+                calculaVezesAbertaNoMes(listLogRecycler);
+                calculaVezesAbertaNoAno(listLogRecycler);
+                if(chartId == 0){
+                    displayChart(R.id.action_chart1);
+                }
             } else {
                 showErrorMessage();
+            }
+        }
+    }
+
+    private String getMesCorrentePorExtenso(){
+        int mesCorrente = Integer.valueOf(currentDate.substring(3,5));
+        if(mesCorrente == 1){
+            return "Janeiro";
+        } else if(mesCorrente == 2){
+            return "Fevereiro";
+        } else if(mesCorrente == 3){
+            return "Março";
+        } else if(mesCorrente == 4){
+            return "Abril";
+        } else if(mesCorrente == 5){
+            return "Maio";
+        } else if(mesCorrente == 6){
+            return "Junho";
+        } else if(mesCorrente == 7){
+            return "Julho";
+        } else if(mesCorrente == 8){
+            return "Agosto";
+        } else if(mesCorrente == 9){
+            return "Setembro";
+        } else if(mesCorrente == 10){
+            return "Outubro";
+        } else if(mesCorrente == 11){
+            return "Novembro";
+        } else if(mesCorrente == 12){
+            return "Dezembro";
+        }
+        return null;
+    }
+
+    private void calculaVezesAbertaHoje(List<ActionLog> logs){
+        manhaHoje = 0;
+        tardeHoje = 0;
+        noiteHoje = 0;
+
+        if(logs != null && logs.size() > 0) {
+            for (ActionLog log: logs) {
+                if(log.getTopic().equals("state")){
+                    if(log.getDate().equals(currentDate)){
+                        int hour = Integer.valueOf(log.getTime().substring(0,2));
+                        if(hour >= 0 && hour < 12){
+                            manhaHoje++;
+                        } else if(hour >= 12 && hour < 18){
+                            tardeHoje++;
+                        } else if(hour >= 18 && hour < 24){
+                            noiteHoje++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void calculaVezesAbertaNoMes(List<ActionLog> logs){
+        diasDoMes = new int[32];
+        int mesCorrente = Integer.valueOf(currentDate.substring(3,5));
+
+        if(logs != null && logs.size() > 0) {
+            for (ActionLog log: logs) {
+                if(log.getTopic().equals("state")){
+
+                    int mes = Integer.valueOf(log.getDate().substring(3,5));
+                    if(mes == mesCorrente){
+                        int dia = Integer.valueOf(log.getDate().substring(0,2));
+                        diasDoMes[dia]++;
+                    }
+                }
+            }
+        }
+    }
+
+    private void calculaVezesAbertaNoAno(List<ActionLog> logs){
+        mesesDoAno = new int[33];
+        int anoCorrente = Integer.valueOf(currentDate.substring(6,10));
+
+        if(logs != null && logs.size() > 0) {
+            for (ActionLog log: logs) {
+                if(log.getTopic().equals("state")){
+
+                    int ano = Integer.valueOf(log.getDate().substring(6,10));
+                    if(ano == anoCorrente){
+                        int mes = Integer.valueOf(log.getDate().substring(3,5));
+                        mesesDoAno[mes]++;
+                    }
+                }
             }
         }
     }
@@ -253,6 +319,7 @@ public class ChartActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemThatWasClickedId = item.getItemId();
+        chartId = itemThatWasClickedId;
         displayChart(itemThatWasClickedId);
         return super.onOptionsItemSelected(item);
     }
