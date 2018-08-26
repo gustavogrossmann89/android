@@ -5,15 +5,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -34,6 +38,7 @@ import com.google.firebase.storage.UploadTask;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -79,7 +84,8 @@ public class NodeActivity extends AppCompatActivity {
     String data;
 
     private ImageView imageView;
-    private Uri filePath;
+    private Uri fileUploadPath;
+    private Uri fileDownloadPath;
     private final int PICK_IMAGE_REQUEST = 71;
 
     FirebaseStorage storage;
@@ -169,6 +175,7 @@ public class NodeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        downloadImage();
         //StorageReference gsReference = storage.getReferenceFromUrl("gs://iotsmartlockgg.appspot.com/images/-LKnjvyiAAq9d1MxVVCN");
         //Glide.with(this).load(gsReference).into(imageView);
     }
@@ -184,9 +191,9 @@ public class NodeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null ) {
-            filePath = data.getData();
+            fileUploadPath = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), fileUploadPath);
                 imageView.setImageBitmap(bitmap);
                 uploadImage();
             }
@@ -197,14 +204,13 @@ public class NodeActivity extends AppCompatActivity {
     }
 
     private void uploadImage() {
-
-        if(filePath != null) {
+        if(fileUploadPath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Salvando...");
             progressDialog.show();
 
             StorageReference ref = storageReference.child("images/" + id);
-            ref.putFile(filePath)
+            ref.putFile(fileUploadPath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -229,6 +235,31 @@ public class NodeActivity extends AppCompatActivity {
                         progressDialog.setMessage("Salvando: "+(int)progress+"%");
                     }
                 });
+        }
+    }
+
+    private void downloadImage() {
+
+        StorageReference ref = storage.getReferenceFromUrl("gs://iotsmartlockgg.appspot.com/images/").child(id);
+
+        if(ref != null) {
+            try {
+                final File localFile = File.createTempFile("images", "jpg");
+                ref.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                        imageView.setImageBitmap(bitmap);
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
