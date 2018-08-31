@@ -76,7 +76,7 @@ public class ReportActivity extends AppCompatActivity implements LogAdapter.List
                     ab.setTitle("Detalhes das aberturas");
                 }
                 for (ActionLog log : listLogRecycler) {
-                    if (log.getTopic().equals("state") && log.getMsg().equals("0")) {
+                    if (log.getTopic().equals("open")) {
                         listShow.add(log);
                     }
                 }
@@ -85,7 +85,7 @@ public class ReportActivity extends AppCompatActivity implements LogAdapter.List
                     ab.setTitle("Disparos do alarme");
                 }
                 for (ActionLog log : listLogRecycler) {
-                    if (log.getTopic().equals("alert") && log.getMsg().equals("1")) {
+                    if (log.getTopic().equals("alert")) {
                         listShow.add(log);
                     }
                 }

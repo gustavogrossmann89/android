@@ -67,16 +67,16 @@ public class NodeAdapter extends RecyclerView.Adapter<NodeAdapter.ViewHolder> {
         void bind(Node node) {
             this.nameTextView.setText(node.getNome());
             if(node.getInstallationstatus().equals("0")) {
-                this.installationStatusTextView.setText("Status: ABERTA");
+                this.installationStatusTextView.setText("Instalação: ABERTA");
             } else{
-                this.installationStatusTextView.setText("Status: FECHADA");
+                this.installationStatusTextView.setText("Instalação: FECHADA");
             }
 
             String lockAlarmText = "";
             if(node.getLockstatus().equals("0")) {
-                lockAlarmText = "Trava: OFF";
+                lockAlarmText = "Trava: ABERTA";
             } else{
-                lockAlarmText = "Trava: ON";
+                lockAlarmText = "Trava: FECHADA";
             }
 
             if(node.getAlarmstatus().equals("0")) {

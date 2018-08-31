@@ -10,13 +10,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -85,12 +83,10 @@ public class NodeActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private Uri fileUploadPath;
-    private Uri fileDownloadPath;
     private final int PICK_IMAGE_REQUEST = 71;
 
     FirebaseStorage storage;
     StorageReference storageReference;
-    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +138,8 @@ public class NodeActivity extends AppCompatActivity {
             }
         });
 
+        downloadImage();
+
         Button chartButton = (Button) findViewById(R.id.chartBtn);
         chartButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,10 +172,6 @@ public class NodeActivity extends AppCompatActivity {
         } catch (MqttException e) {
             e.printStackTrace();
         }
-
-        downloadImage();
-        //StorageReference gsReference = storage.getReferenceFromUrl("gs://iotsmartlockgg.appspot.com/images/-LKnjvyiAAq9d1MxVVCN");
-        //Glide.with(this).load(gsReference).into(imageView);
     }
 
     private void chooseImage() {
@@ -303,7 +297,7 @@ public class NodeActivity extends AppCompatActivity {
         switchRadioLockBtn = (Switch) findViewById(R.id.node_switchLockBtn);
         switchRadioAlarmBtn = (Switch) findViewById(R.id.node_switchAlarmBtn);
 
-        if(lockstatus.equals("0")){
+        if(lockstatus.equals("1")){
             switchRadioLockBtn.setChecked(true);
             lockStatusTextView.setTextColor(Color.RED);
         } else {
