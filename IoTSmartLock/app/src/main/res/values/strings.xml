@@ -32,6 +32,7 @@
     <string name="chart1">Qtde de vezes aberta (hoje)</string>
     <string name="chart2">Qtde de vezes aberta no mês (por dia)</string>
     <string name="chart3">Qtde de vezes aberta no ano (por mês)</string>
-    <string name="report1">Relatório de aberturas da instalação</string>
-    <string name="report2">Relatório de disparos do alarme</string>
+    <string name="report1">Relat. de aberturas da instalação</string>
+    <string name="report2">Relat. de disparos do alarme</string>
+    <string name="report3">Relat. de momentos esquecida aberta</string>
 </resources>

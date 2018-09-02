@@ -67,7 +67,7 @@ public class ReportActivity extends AppCompatActivity implements LogAdapter.List
 
     public void displayReport(Integer reportId){
 
-        if (reportId == R.id.action_report1 || reportId == R.id.action_report2) {
+        if (reportId == R.id.action_report1 || reportId == R.id.action_report2 || reportId == R.id.action_report3) {
             ActionBar ab = getSupportActionBar();
             List<ActionLog> listShow = new ArrayList<>();
 
@@ -86,6 +86,15 @@ public class ReportActivity extends AppCompatActivity implements LogAdapter.List
                 }
                 for (ActionLog log : listLogRecycler) {
                     if (log.getTopic().equals("alert")) {
+                        listShow.add(log);
+                    }
+                }
+            } else if (reportId == R.id.action_report3) {
+                if (ab != null) {
+                    ab.setTitle("Momentos esquecida aberta");
+                }
+                for (ActionLog log : listLogRecycler) {
+                    if (log.getTopic().equals("leave")) {
                         listShow.add(log);
                     }
                 }

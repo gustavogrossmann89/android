@@ -20,6 +20,11 @@
                 android:orderInCategory="2"
                 android:title="@string/report2"
                 app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/action_report3"
+                android:orderInCategory="3"
+                android:title="@string/report3"
+                app:showAsAction="ifRoom" />
         </menu>
     </item>
 </menu>
