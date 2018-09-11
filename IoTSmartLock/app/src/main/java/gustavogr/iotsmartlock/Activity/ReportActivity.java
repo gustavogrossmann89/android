@@ -76,7 +76,7 @@ public class ReportActivity extends AppCompatActivity implements LogAdapter.List
                     ab.setTitle("Detalhes das aberturas");
                 }
                 for (ActionLog log : listLogRecycler) {
-                    if (log.getTopic().equals("open")) {
+                    if (log.getTopic().equals("open") && log.getMsg().equals("1")) {
                         listShow.add(log);
                     }
                 }

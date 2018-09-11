@@ -246,7 +246,7 @@ public class ChartActivity extends AppCompatActivity{
 
         if(logs != null && logs.size() > 0) {
             for (ActionLog log: logs) {
-                if(log.getTopic().equals("open")){
+                if(log.getTopic().equals("open") && log.getMsg().equals("1")){
                     if(log.getDate().equals(currentDate)){
                         int hour = Integer.valueOf(log.getTime().substring(0,2));
                         if(hour >= 0 && hour < 12){
@@ -268,7 +268,7 @@ public class ChartActivity extends AppCompatActivity{
 
         if(logs != null && logs.size() > 0) {
             for (ActionLog log: logs) {
-                if(log.getTopic().equals("open")){
+                if(log.getTopic().equals("open") && log.getMsg().equals("1")){
 
                     int mes = Integer.valueOf(log.getDate().substring(3,5));
                     if(mes == mesCorrente){
@@ -286,7 +286,7 @@ public class ChartActivity extends AppCompatActivity{
 
         if(logs != null && logs.size() > 0) {
             for (ActionLog log: logs) {
-                if(log.getTopic().equals("open")){
+                if(log.getTopic().equals("open") && log.getMsg().equals("1")){
 
                     int ano = Integer.valueOf(log.getDate().substring(6,10));
                     if(ano == anoCorrente){
