@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,9 +42,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import gustavogr.iotsmartlock.MQTT.AndroidMqttClient;
+import gustavogr.iotsmartlock.Model.ActionLog;
 import gustavogr.iotsmartlock.Model.Node;
 import gustavogr.iotsmartlock.MQTT.MqttCallbackHandler;
 import gustavogr.iotsmartlock.R;
@@ -80,6 +85,8 @@ public class NodeActivity extends AppCompatActivity {
     String alarmstatus;
     String installationstatus;
     String data;
+
+    String updatedinstallationstatus;
 
     private ImageView imageView;
     private Uri fileUploadPath;
@@ -163,6 +170,7 @@ public class NodeActivity extends AppCompatActivity {
         });
 
         refreshScreen();
+        refreshInstallationStatus();
 
         try {
             mqttClient = new AndroidMqttClient(this, mqttServerURL, mqttServerPort,
@@ -263,9 +271,15 @@ public class NodeActivity extends AppCompatActivity {
         refresh();
     }
 
+    public void refreshInstallationStatus() {
+        URL searchUrl = RestUtil.buildUrl("logs","orderBy=\"node\"&equalTo=\"" + mqttid + "\"");
+        new InstallationStatusLogTask().execute(searchUrl);
+    }
+
     public void refresh() {
         URL searchUrl = RestUtil.buildUrl("nodes/" + id,null);
         new NodeActivity.NodeRefreshTask().execute(searchUrl);
+        refreshInstallationStatus();
     }
 
     public void refreshValues(Node node) {
@@ -368,6 +382,53 @@ public class NodeActivity extends AppCompatActivity {
         finish();
     }
 
+    public class InstallationStatusLogTask extends AsyncTask<URL, Void, String> {
+
+        @Override
+        protected String doInBackground(URL... params) {
+            URL searchUrl = params[0];
+            String result = null;
+            try {
+                result = RestUtil.doGet(searchUrl);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null && !result.equals("")) {
+                List<ActionLog> logs = RestUtil.parseActionLogJSONArray(result);
+
+                if(!logs.isEmpty()) {
+                    Collections.sort(logs, new Comparator<ActionLog>() {
+                        @Override
+                        public int compare(ActionLog o1, ActionLog o2) {
+                            return o2.getDateTime().compareTo(o1.getDateTime());
+                        }
+                    });
+                    for (ActionLog log : logs) {
+                        if (log.getTopic().equals("open")) {
+                            if (log.getMsg().equals("1")) {
+                                //Quando open = 1, installationStatus deve ser 0, para indicar instalacao aberta
+                                updatedinstallationstatus = "0";
+                            } else {
+                                //Quando open = 0, installationStatus deve ser 1, para indicar instalacao fechada
+                                updatedinstallationstatus = "1";
+                            }
+                            URL createUrl = RestUtil.buildUrl("nodes/" + id, null);
+                            new NodeActivity.NodeUpdateInstallationStatusTask().execute(createUrl);
+                            break;
+                        }
+                    }
+                }
+            } else {
+                showErrorMessage();
+            }
+        }
+    }
+
     public class NodeRefreshTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -419,6 +480,33 @@ public class NodeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             return result;
+        }
+    }
+
+    public class NodeUpdateInstallationStatusTask extends AsyncTask<URL, Void, String> {
+
+        @Override
+        protected String doInBackground(URL... urls) {
+            URL createUrl = urls[0];
+
+            String result = null;
+            try {
+                result = RestUtil.updateOnFirebase(createUrl,new Node(id, userid, nome, descricao, mqttid, lockstatus, alarmstatus, updatedinstallationstatus, data));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null && !result.equals("")) {
+                Node node = RestUtil.parseJSON(result);
+                refreshValues(node);
+                refreshScreen();
+            } else {
+                showErrorMessage();
+            }
         }
     }
 

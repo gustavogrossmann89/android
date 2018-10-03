@@ -105,10 +105,10 @@ public class ReportActivity extends AppCompatActivity implements LogAdapter.List
 
     public void searchLogsByNodeId(String nodeid) {
        URL searchUrl = RestUtil.buildUrl("logs","orderBy=\"node\"&equalTo=\"" + nodeid + "\"");
-       new NodeSearchTask().execute(searchUrl);
+       new DataSearchTask().execute(searchUrl);
     }
 
-    public class NodeSearchTask extends AsyncTask<URL, Void, String> {
+    public class DataSearchTask extends AsyncTask<URL, Void, String> {
 
         @Override
         protected void onPreExecute(){
